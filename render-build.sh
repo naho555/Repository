@@ -1,4 +1,4 @@
-#!/bin/bash
+apt-get update && apt-get install -y ncurses-bin
 set -e
 
 export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
