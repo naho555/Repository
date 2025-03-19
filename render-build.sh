@@ -1,6 +1,7 @@
-chmod +x render-build.sh
+#!/bin/bash
+set -e
 
-export JAVA_HOME=/opt/render/project/.render/versions/java-17
+export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
 export PATH=$JAVA_HOME/bin:$PATH
 
 echo "JAVA_HOME is set to: $JAVA_HOME"
