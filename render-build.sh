@@ -1,8 +1,9 @@
-export JAVA_HOME="/usr/lib/jvm/java-17-openjdk"
-export PATH="$JAVA_HOME/bin:$PATH"
+apt-get update && apt-get install -y openjdk-17-jdk
+
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
 
 echo "JAVA_HOME is set to: $JAVA_HOME"
-ls $JAVA_HOME
 java -version
 
 chmod +x LoginProject/mvnw
