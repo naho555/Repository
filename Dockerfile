@@ -1,5 +1,5 @@
 # 1. ビルド環境の設定
-FROM maven:3.8.6-eclipse-temurin-17 AS build
+FROM maven:3.8.8-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
@@ -16,13 +16,16 @@ RUN chmod +x mvnw
 # 依存関係をダウンロードしてキャッシュを活用
 RUN ./mvnw dependency:go-offline
 
+# JAR ファイルをビルド
+RUN ./mvnw clean package -DskipTests
+
+# JAR ファイルが作成されたか確認
+RUN ls -lah /app/target
+
 # 2. 実行環境の設定
 FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
-
-# **JAR ファイルが正しくビルドされたか確認**
-RUN ls -lah /app/target
 
 # ビルド済みの JAR ファイルをコピー
 COPY --from=build /app/target/*.jar app.jar
