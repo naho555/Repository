@@ -1,6 +1,6 @@
 
-COPY LoginProject/pom.xml LoginProject/mvnw LoginProject/mvnw.cmd ./
-COPY LoginProject/src/ src/
+COPY pom.xml mvnw mvnw.cmd ./
+COPY src/ src/
 
 FROM openjdk:17
 WORKDIR /app
