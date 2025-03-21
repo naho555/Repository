@@ -1,5 +1,5 @@
-# **1. ビルド環境の設定**
-FROM maven:3.8.6-openjdk-17 AS build
+# 1. ビルド環境の設定
+FROM maven:3.8.6-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
@@ -16,8 +16,8 @@ RUN chmod +x mvnw
 # 依存関係をダウンロードしてキャッシュを活用
 RUN ./mvnw dependency:go-offline
 
-# **2. 実行環境の設定**
-FROM openjdk:17
+# 2. 実行環境の設定
+FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
