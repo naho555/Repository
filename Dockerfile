@@ -1,14 +1,28 @@
+# **1. ビルド環境の設定**
+FROM maven:3.8.6-openjdk-17 AS build
 
-COPY LoginProject/pom.xml LoginProject/mvnw LoginProject/mvnw.cmd ./
+WORKDIR /app
+
+# プロジェクトのソースコードをコンテナにコピー
+COPY LoginProject/pom.xml .
+COPY LoginProject/mvnw .
+COPY LoginProject/mvnw.cmd .
+COPY LoginProject/.mvn .mvn
 COPY LoginProject/src/ src/
 
-
-FROM openjdk:17
-WORKDIR /app
-COPY . .
+# Maven Wrapper の権限を設定
 RUN chmod +x mvnw
-RUN ./mvnw clean package
-CMD ["java", "-jar", "target/*.jar", "--server.port=$PORT"]
-ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk
-ENV PATH "$JAVA_HOME/bin:$PATH"
 
+# 依存関係をダウンロードしてキャッシュを活用
+RUN ./mvnw dependency:go-offline
+
+# **2. 実行環境の設定**
+FROM openjdk:17
+
+WORKDIR /app
+
+# ビルド済みの JAR ファイルをコピー
+COPY --from=build /app/target/*.jar app.jar
+
+# アプリケーションを実行
+CMD ["java", "-jar", "app.jar"]
