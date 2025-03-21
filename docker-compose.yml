@@ -23,7 +23,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=jdbc:postgresql://login_db_9w8c_user:1HBhd8lEmnTXnX9L90GRTrzP5hbZhGNL@dpg-cvdd7grtq21c73abpe90-a/login_db_9w8c
+      - DATABASE_URL=jdbc:postgresql://dpg-cvdd7grtq21c73abpe90-a:5432/login_db_9w8c
       - DATABASE_USER=login_db_9w8c_user
       - DATABASE_PASSWORD=1HBhd8lEmnTXnX9L90GRTrzP5hbZhGNL
     ports:
