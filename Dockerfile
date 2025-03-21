@@ -5,7 +5,7 @@ FROM openjdk:17
 WORKDIR /app
 
 # 必要なファイルのみコピー
-COPY pom.xml mvnw mvnw.cmd ./
+COPY LoginProject/pom.xml mvnw mvnw.cmd ./
 COPY LoginProject/src/ src/
 
 # Maven Wrapper の実行権限を設定
