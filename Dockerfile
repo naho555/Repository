@@ -21,6 +21,9 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
+# **JAR ファイルが正しくビルドされたか確認**
+RUN ls -lah /app/target
+
 # ビルド済みの JAR ファイルをコピー
 COPY --from=build /app/target/*.jar app.jar
 
