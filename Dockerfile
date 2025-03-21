@@ -1,21 +1,13 @@
-# ベースイメージ
-FROM openjdk:17
 
-# 作業ディレクトリを設定
-WORKDIR /app
-
-# 必要なファイルのみコピー
 COPY LoginProject/pom.xml LoginProject/mvnw LoginProject/mvnw.cmd ./
 COPY LoginProject/src/ src/
 
-# Maven Wrapper の実行権限を設定
-RUN chmod +x mvnw
-
-# 依存関係をダウンロード（キャッシュを活用）
-RUN ./mvnw dependency:go-offline
-
-# 残りのファイルをコピー
+FROM openjdk:17
+WORKDIR /app
 COPY . .
-
-# 実行スクリプトを走らせる
+RUN chmod +x mvnw
 RUN ./mvnw clean package
+CMD ["java", "-jar", "target/*.jar", "--server.port=$PORT"]
+ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk
+ENV PATH "$JAVA_HOME/bin:$PATH"
+
