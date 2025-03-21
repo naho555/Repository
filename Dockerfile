@@ -1,30 +1,21 @@
-# Java 17 の公式イメージを使用
-FROM openjdk:17-jdk-slim
-
 # ベースイメージ
 FROM openjdk:17
 
 # 作業ディレクトリを設定
 WORKDIR /app
 
-# 必要なファイルをコピー
-COPY . .   # すべてのファイルをコンテナにコピー
+# 必要なファイルのみコピー
+COPY pom.xml mvnw mvnw.cmd ./
+COPY src/ src/
 
-# 実行権限を付与
-RUN chmod +x render-build.sh
+# Maven Wrapper の実行権限を設定
+RUN chmod +x mvnw
+
+# 依存関係をダウンロード（キャッシュを活用）
+RUN ./mvnw dependency:go-offline
+
+# 残りのファイルをコピー
+COPY . .
 
 # 実行スクリプトを走らせる
-RUN ./render-build.sh
-
-# 必要なパッケージをインストール（tput のエラーを防ぐ）
-RUN apt-get update && apt-get install -y ncurses-bin
-
-# 環境変数を設定
-ENV TERM=xterm
-
-# Maven のビルドを実行
-RUN chmod +x render-build.sh
-RUN ./render-build.sh
-
-# アプリケーションを実行
-CMD ["java", "-jar", "target/*.jar"]
+RUN ./mvnw clean package
