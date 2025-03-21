@@ -9,16 +9,16 @@
 /* ログイン画面 */
 
 
- .contents {	
+.contents {
 	width: 380px;
-	height: 100vh;
 	height: 100svh;
 	background-color: white;
-	margin:0 auto 64px;
+	margin: 0 auto 64px;
 	display: flex;
 	flex-direction: column;
-	justify-content: end;
- }
+	justify-content: flex-end; 
+}
+
 
 
 
@@ -91,7 +91,7 @@ a:hover {
 	opacity: .6;
 }
 
-.fa-solid, fa-circle-right, fa-lg-btn {
+.fa-solid, .fa-circle-right, .fa-lg-btn {
 	padding-left: 8px;
 }
 
@@ -127,6 +127,14 @@ h2 {
 	 }
 	 
 }
+
+input, button {
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
 
 @media (min-width: 960px) {
 	
